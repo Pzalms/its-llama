@@ -22,49 +22,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import { getResponse } from "../../../hau-lms/src/chatbot/english-bot-v2.js"; // Adjust the path as needed
 import ChatbotIcon from "../icons/ChatbotIcon.vue";
-
-const API_KEY = "sk-proj-0vtp5O6GERnzPjvhqru2T3BlbkFJK5RYpQjfZ6CBu7vfyP64";
-const DEFAULT_RESPONSE = "Sorry, I don't understand that. Please focus on topics related to AI and Innovation";
-
-async function getChatGPTResponse(prompt) {
-  try {
-    const response = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        model: "gpt-4",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens: 150,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (response.data && response.data.choices && response.data.choices.length > 0) {
-      return response.data.choices[0].message.content.trim();
-    } else {
-      return DEFAULT_RESPONSE;
-    }
-  } catch (error) {
-    console.error("Error getting response from OpenAI:", error);
-    return DEFAULT_RESPONSE;
-  }
-}
-
-function cleanseInput(str) {
-  let temp = str.replace(/[^a-zA-Z0-9 ]/g, "");
-  return temp.trim().toLowerCase();
-}
-
-async function getResponse(msg) {
-  let cleansed = cleanseInput(msg);
-  return await getChatGPTResponse(cleansed);
-}
 
 export default {
   components: {
@@ -90,7 +49,7 @@ export default {
       this.userInput = "";
 
       try {
-        // Get response from ChatGPT
+        // Get response from Llama
         const botResponse = await getResponse(userMessage);
         this.messages.push({ sender: "bot", text: botResponse });
       } catch (error) {

@@ -1,44 +1,38 @@
-import axios from "axios";
+import LlamaAI from 'llamaai';
 
-const API_KEY = "sk-proj-0vtp5O6GERnzPjvhqru2T3BlbkFJK5RYpQjfZ6CBu7vfyP64";
-const DEFAULT_RESPONSE =
-  "Sorry, I don't understand that. Please focus on topics related to AI and Innovation";
+const API_TOKEN = 'LL-7IGvTAtfA7lmoaErLUz0HjqvQTJ8djswCsUYS7AxbIJvs0k1vcNQhfSEjc6H4iAQ';
+const DEFAULT_RESPONSE = "Sorry, I don't understand that. Please focus on topics related to AI and Innovation";
 
-async function getChatGPTResponse(prompt) {
+// Initialize the Llama API
+const llamaAPI = new LlamaAI(API_TOKEN);
+
+async function getLlamaResponse(prompt) {
   try {
-    const response = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        model: "gpt-4",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens: 150, // Adjust this value based on your needs
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    // Build the request
+    const apiRequestJson = {
+      "messages": [
+        { "role": "user", "content": prompt }
+      ],
+      "stream": false
+    };
 
-    if (
-      response.data &&
-      response.data.choices &&
-      response.data.choices.length > 0
-    ) {
-      return response.data.choices[0].message.content.trim();
+    // Execute the request
+    const response = await llamaAPI.run(apiRequestJson);
+
+    if (response && response.choices && response.choices.length > 0) {
+      return response.choices[0].message.content.trim();
     } else {
       return DEFAULT_RESPONSE;
     }
   } catch (error) {
-    console.error("Error getting response from OpenAI:", error);
+    console.error("Error getting response from LlamaAPI:", error);
     return DEFAULT_RESPONSE;
   }
 }
 
 export async function getResponse(msg) {
   let cleansed = cleanseInput(msg);
-  return await getChatGPTResponse(cleansed);
+  return await getLlamaResponse(cleansed);
 }
 
 function cleanseInput(str) {

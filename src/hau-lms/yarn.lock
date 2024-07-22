@@ -5506,6 +5506,11 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
+llamaai@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/llamaai/-/llamaai-1.0.4.tgz"
+  integrity sha512-Y54Yn1EkLIVKn2kCUbU9kqGX/vhBh0Swan2tu4os8xuy88axOr3h6UKJiI0H2kfY3P/DVVmKuNTdmzLoW90CJA==
+
 loader-fs-cache@^1.0.0:
   version "1.0.3"
   resolved "https://registry.npmjs.org/loader-fs-cache/-/loader-fs-cache-1.0.3.tgz"
