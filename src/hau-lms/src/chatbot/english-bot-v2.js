@@ -1,6 +1,8 @@
 import LlamaAI from 'llamaai';
+//import dotenv from 'dotenv';
+require('dotenv').config();
 
-const API_TOKEN = 'LL-7IGvTAtfA7lmoaErLUz0HjqvQTJ8djswCsUYS7AxbIJvs0k1vcNQhfSEjc6H4iAQ';
+const API_TOKEN = process.env.VUE_APP_API_TOKEN;
 const DEFAULT_RESPONSE = "Sorry, I don't understand that. Please focus on topics related to AI and Innovation";
 
 // Initialize the Llama API
